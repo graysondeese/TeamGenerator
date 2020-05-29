@@ -10,7 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 // array of all the employees
-const employees = [];
+const employeesArr = [];
 
 // Gathering employee info with inquirer prompt
 const promptEmployee = () => {
@@ -60,9 +60,64 @@ const schoolPrompt = (intern) => {
         }
     ]).then(response => {
         // saving the school response
-        intern.school = response.school
+        intern.school = response.school;
         // checking for more employees
-        additionalEmployees(employee)
+        adder(intern);
+    })
+}
+
+// Prompt for Engineers
+const gitHubPrompt = (engineer) => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'GitHub Username?',
+            name: 'gitHubUser'
+        }
+    ]).then(response => {
+        // saving the github response
+        engineer.gitHubUser = response.gitHubUser;
+        // checking for more employees
+        adder(engineer);
+    })
+}
+
+// Prompt for managers
+const officePrompt = (manager) => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'Office Number?',
+            name: 'officeNum'
+        }
+    ]).then(response => {
+        // saving the github response
+        manager.gitHubUser = response.officeNum;
+        // checking for more employees
+        adder(manager);
+    })
+}
+
+const adder = (employee) => {
+    inquirer.prompt([
+        // seeing if the user wants to add more employees
+        {
+            type: 'confirm',
+            message: 'Would you like to add another employee?',
+            name: 'addEmployee'
+        }
+    ]).then(response => {
+        // pushing info to the lib folder (constructors)
+        if (employee.role === 'Intern') {
+            employeesArr.push(new Intern(employee.name, employee.id, employee.email, employee.school))
+        } else if (employee.role === 'Engineer') {
+            employeesArr.push(new Engineer(employee.name, employee.id, employee.email, employee.gitHubUser))
+        } else if (employee.role === 'Manager') {
+            employeesArr.push(new Manager(employee.name, employee.id, employee.email, employee.officeNum))
+        }
+        if (response.addEmployee){
+            promptEmployee();
+        }
     })
 }
 
