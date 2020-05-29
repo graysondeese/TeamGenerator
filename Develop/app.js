@@ -17,12 +17,31 @@ const promptEmployee = () => {
     inquirer.prompt([
         {
             type: 'list',
-            message: 'What is the employee(s) position?',
+            message: 'What is the employee(s) role?',
             choices: ['Intern', 'Engineer', 'Manager'],
-            name: 'position'
+            name: 'role'
+        },
+        {
+            type: 'input',
+            message: 'First name?',
+            name: 'name'
+        },
+        {
+            type: 'input',
+            message: 'Employee ID?',
+            name: 'id'
+        },
+        {
+            type: 'input',
+            message: 'Email?',
+            name: 'email'
         }
-    ])
+    ]).then(response =>{
+
+    })
 }
+
+// Calling the function to make the prompt pop up
 promptEmployee();
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
