@@ -9,8 +9,21 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+// array of all the employees
+// const employee = [];
 
-
+// Gathering employee info with inquirer prompt
+const promptEmployee = () => {
+    inquirer.prompt([
+        {
+            type: 'list',
+            message: 'What is the employee(s) position?',
+            choices: ['Intern', 'Engineer', 'Manager'],
+            name: 'position'
+        }
+    ])
+}
+promptEmployee();
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
