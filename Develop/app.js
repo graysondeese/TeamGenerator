@@ -10,7 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 // array of all the employees
-// const employee = [];
+const employees = [];
 
 // Gathering employee info with inquirer prompt
 const promptEmployee = () => {
@@ -36,8 +36,33 @@ const promptEmployee = () => {
             message: 'Email?',
             name: 'email'
         }
-    ]).then(response =>{
+    ]).then(response => { 
+        // capitalizing the first letter in the name
+        response.name = response.name.charAt(0).toUpperCase() + response.name.substr(1);
+        // Finding the roles
+        if (response.role === 'Intern') {
+            schoolPrompt(response);
+        } else if (response.role === 'Engineer') {
+            gitHubPrompt(response);
+        } else if (response.role === 'Manager') {
+            officePrompt(response);
+        }
+    })
+}
 
+// Prompt for when user selects Intern
+const schoolPrompt = (intern) => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'School?',
+            name: 'school'
+        }
+    ]).then(response => {
+        // saving the school response
+        intern.school = response.school
+        // checking for more employees
+        additionalEmployees(employee)
     })
 }
 
