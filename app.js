@@ -115,8 +115,19 @@ const adder = (employee) => {
         } else if (employee.role === 'Manager') {
             employeesArr.push(new Manager(employee.name, employee.id, employee.email, employee.officeNum))
         }
+        // running program again if the user wants to enter another employee
         if (response.addEmployee){
             promptEmployee();
+        } else {
+            let renderedHTML = render(employeesArr);
+            fs.writeFile(outputPath, renderedHTML, 'utf8', err => {
+                if(err) {
+                    return err;
+                } else {
+                    console.log('Success!');
+                    
+                }
+            })
         }
     })
 }
