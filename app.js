@@ -92,7 +92,7 @@ const officePrompt = (manager) => {
         }
     ]).then(response => {
         // saving the github response
-        manager.gitHubUser = response.officeNum;
+        manager.officeNum = response.officeNum;
         // checking for more employees
         adder(manager);
     })
